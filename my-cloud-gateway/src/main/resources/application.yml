@@ -1,0 +1,49 @@
+server:
+  port: 9999
+  http:
+    port: 9998
+  ssl:
+    key-store: classpath:client.p12
+    key-store-type: PKCS12
+    key-alias: client
+    key-store-password: 12345678
+    enabled: false
+spring:
+  application:
+    name: my-cloud-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+#        - id: my-websocket
+#          uri: lb://my-websocket
+#          predicates:
+#          - Path=/**
+        - id: my-websocket-ws
+          uri: lb:ws://my-websocket
+          predicates:
+          - Path=/websocket/**
+          filters:
+            - StripPrefix=1
+#        - id: my-websocket-wss
+#          uri: lb:wss://my-websocket
+#          predicates:
+#          - Path=/**
+      httpclient:
+        ssl:
+          use-insecure-trust-manager: false
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+

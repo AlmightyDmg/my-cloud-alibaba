@@ -1,0 +1,3 @@
+# Project exclude paths
+/my-cloud-gateway/target/
+/my-websocket/target/

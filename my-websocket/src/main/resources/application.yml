@@ -1,0 +1,18 @@
+server:
+  port: 8888
+  http:
+    port: 8887
+  ssl:
+    key-store: classpath:client.p12
+    key-store-type: PKCS12
+    key-alias: client
+    key-store-password: 12345678
+    enabled: false
+spring:
+  application:
+    name: my-websocket
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
